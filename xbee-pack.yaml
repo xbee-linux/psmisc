@@ -2,7 +2,7 @@ schema-version: 1.0
 
 type: builder
 
-in:
+var:
   version: 23.4
 
 dependencies:
@@ -14,8 +14,8 @@ dependencies:
 
 provision:
   - url:
-      from: https://gitlab.com/psmisc/psmisc/-/archive/v{% version %}/psmisc-v{% version %}.tar.gz
-      todir: "{% xbeeSrc %}"
+      from: https://gitlab.com/psmisc/psmisc/-/archive/v{{ .version }}/psmisc-v{{ .version }}.tar.gz
+      todir: "{{ .xbee.src }}"
 
 build:
   - shell:
@@ -23,5 +23,5 @@ build:
         - ./autogen.sh
         - ./configure --prefix=/usr
         - make
-        - make install DESTDIR={% xbeeOut %}
-      directory: "{% xbeeSrc %}/psmisc-v{% version %}"
+        - make install DESTDIR={{ .xbee.out }}
+      directory: "{{ .xbee.src }}/psmisc-v{{ .version }}"
